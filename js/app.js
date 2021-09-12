@@ -66,7 +66,7 @@ const products = [
 ];
 
 // Variables globales
-const main = document.getElementById('product-list-container');
+const container = document.getElementById('product-list-container');
 const calculateButton = document.getElementById('calculate');
 
 calculateButton.disabled = true;
@@ -76,14 +76,14 @@ const createDescription = (data, tax) => {
   let description = document.createElement('h2');
   description.setAttribute('class', 'productDescription');
   description.setAttribute('tax', tax);
-  main.appendChild(description);
+  container.appendChild(description);
   description.innerHTML = data;
 };
 
 const createPrice = (data) => {
   let price = document.createElement('p');
   price.setAttribute('class', 'productPrice');
-  main.appendChild(price);
+  container.appendChild(price);
   price.innerHTML = data;
 };
 
@@ -95,7 +95,7 @@ const createInput = (product) => {
   input.setAttribute('id', 'input');
   input.setAttribute('max', product.stock);
   input.setAttribute('type', 'number');
-  main.appendChild(input);
+  container.appendChild(input);
 
   const handleInput = (ev) => {
     input.value > 0
@@ -134,15 +134,16 @@ const productPrice = () => {
     total += productTaxPrice * productUnits;
   }
 
-  let inputTotal = document.createElement('p');
-  main.appendChild(inputTotal);
-  inputTotal.innerHTML = 'El total de la compra es: ' + total.toFixed(2) + ' €';
+  const totalElement = document.createElement('p');
+  container.appendChild(totalElement);
+  totalElement.innerHTML = 'El total de la compra es: ' + total.toFixed(2) + ' €';
   return total;
 };
 
 // Boton calcular precio total
-let handleCalculateButton = (ev) => {
+const handleCalculateButton = () => {
   productPrice();
+  totalElement.innerHTML = "";
 };
 
 // Eventos
