@@ -4,6 +4,7 @@ body {
 }
 header {
   text-align: center;
+  margin-top: 50px;
 }
 main {
   margin: auto;
@@ -15,6 +16,30 @@ main {
 .container {
   display: block;
 }
-.container p {
-  width: 20%;
+
+.productDescription {
+  font-size: 21px;
+  font-weight: 700;
+  padding-right: 30px;
+}
+
+.productPrice {
+  display: inline-block;
+  width: 2000px;
+}
+
+.inputTitle {
+  display: inline-block;
+}
+
+.productInput {
+  display: inline-block;
+  width: 80px;
+  padding: 0px 2px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#calculate {
+  margin-left: 170px;
 }

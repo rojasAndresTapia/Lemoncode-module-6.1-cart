@@ -42,27 +42,6 @@ const products = [
     stock: 3,
     units: 0,
   },
-  {
-    description: 'Pizarra blanca',
-    price: 5.95,
-    tax: REGULAR_TYPE,
-    stock: 2,
-    units: 0,
-  },
-  {
-    description: 'Afilador',
-    price: 1.2,
-    tax: LOWER_TYPE,
-    stock: 10,
-    units: 0,
-  },
-  {
-    description: 'Libro ABC',
-    price: 19,
-    tax: EXEMPT_TYPE,
-    stock: 2,
-    units: 0,
-  },
 ];
 
 // Variables globales
@@ -73,7 +52,7 @@ calculateButton.disabled = true;
 
 // Definición de funciones
 const createDescription = (data, tax) => {
-  let description = document.createElement('h2');
+  let description = document.createElement('span');
   description.setAttribute('class', 'productDescription');
   description.setAttribute('tax', tax);
   container.appendChild(description);
@@ -81,20 +60,24 @@ const createDescription = (data, tax) => {
 };
 
 const createPrice = (data) => {
-  let price = document.createElement('p');
+  let price = document.createElement('span');
   price.setAttribute('class', 'productPrice');
   container.appendChild(price);
-  price.innerHTML = data;
+  price.innerHTML = data + ' €';
 };
 
 const createInput = (product) => {
   let input = document.createElement('input');
+  let inputTitle = document.createElement('p');
   input.setAttribute('class', 'productInput');
   input.setAttribute('value', 0);
   input.setAttribute('min', 0);
   input.setAttribute('id', 'input');
   input.setAttribute('max', product.stock);
   input.setAttribute('type', 'number');
+  container.appendChild(inputTitle);
+  inputTitle.textContent = 'Cantidad:';
+  inputTitle.setAttribute('class', 'inputTitle');
   container.appendChild(input);
 
   const handleInput = (ev) => {
@@ -110,14 +93,20 @@ const createInput = (product) => {
 // crear lista de productos
 const createList = () => {
   for (let product of products) {
+    createProductBox();
     let productDescription = product.description;
     let productPrice = product.price;
     let productTax = product.tax;
-
     createDescription(productDescription, productTax);
     createPrice(productPrice);
     createInput(product);
   }
+};
+
+const createProductBox = () => {
+  let productContainer = document.createElement('div');
+  container.appendChild(productContainer);
+  productContainer.classList.add('productBox');
 };
 
 createList();
@@ -130,20 +119,20 @@ const productPrice = () => {
     let productPrice = element.price;
     let productUnits = element.units;
     let productTaxPrice = (element.tax * productPrice) / 100 + productPrice;
-
     total += productTaxPrice * productUnits;
   }
 
   const totalElement = document.createElement('p');
   container.appendChild(totalElement);
-  totalElement.innerHTML = 'El total de la compra es: ' + total.toFixed(2) + ' €';
+  totalElement.innerHTML =
+    'El total de la compra es: ' + total.toFixed(2) + ' €';
   return total;
 };
 
 // Boton calcular precio total
 const handleCalculateButton = () => {
   productPrice();
-  totalElement.innerHTML = "";
+  totalElement.innerHTML = '';
 };
 
 // Eventos
